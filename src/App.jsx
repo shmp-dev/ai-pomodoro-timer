@@ -2,38 +2,27 @@ import React from 'react';
 import {
   ChakraProvider,
   Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
   theme,
+  Heading,
+  Flex,
+  Spacer,
+  Container
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
+import CountdownTimer from './components/CountdownTimer';
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
-          </VStack>
-        </Grid>
+      <Box width={'100%'} bgColor={'gray.100'}>
+        <Container width={'80%'} p={'5'} bgColor={'white'}>
+          <Flex>
+            <Heading>AI ポモドーロ・タイマー</Heading>
+            <Spacer></Spacer>
+            <ColorModeSwitcher justifySelf="flex-end" />
+          </Flex>
+          <CountdownTimer></CountdownTimer>
+        </Container>
       </Box>
     </ChakraProvider>
   );
