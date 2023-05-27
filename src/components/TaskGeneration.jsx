@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Textarea, Text, Button, Box, OrderedList, ListItem, AlertTitle } from '@chakra-ui/react';
 import axios from 'axios';
+import { API_KEY } from '../config/apiKeys';
+
 
 export const TaskGeneration = () =>  {
     const [targetText, setTargetText] = useState('');
     const [taskList, setTaskList] = useState(['hoge', 'fuga', 'piyo']);
     const [resText, setResText] = useState('');
 
-    const API_KEY = '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';
     const URL = "https://api.openai.com/v1/chat/completions";
 
     const generateTask = () => {
