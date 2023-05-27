@@ -4,9 +4,11 @@ import {
   Box,
   theme,
   Heading,
-  Container
+  Container,
+  Spacer
 } from '@chakra-ui/react';
 import PomodoroTimer from './components/PomodoroTimer';
+import { TaskGeneration } from './components/TaskGeneration';
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
       <Box width={'100%'} bgColor={'gray.100'}>
         <Container width={'80%'} p={'5'} bgColor={'white'} minHeight="100vh">
           <Heading>AI ポモドーロ・タイマー</Heading>
+          <Spacer />
+          <TaskGeneration />
           <PomodoroTimer />
         </Container>
       </Box>
