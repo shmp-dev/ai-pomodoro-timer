@@ -63,7 +63,7 @@ function PomodoroTimer() {
 
   // UIをレンダリングします。タイマーの値とスタート/ストップボタンを表示します。
   return (
-    <VStack spacing={10}>
+    <VStack p={'3'} border={'1px'} borderRadius={'lg'} spacing={10}>
       <Text fontSize="6xl">{`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}</Text>
       <Button onClick={toggleIsRunning}>{isRunning ? 'Pause' : 'Start'}</Button>
     </VStack>

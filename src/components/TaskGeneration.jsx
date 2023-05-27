@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Textarea, Text, Button, Box, OrderedList, ListItem, Spinner, Alert, AlertIcon, AlertTitle, AlertDescription  } from '@chakra-ui/react';
+import { Textarea, Text, Button, Box, OrderedList, ListItem, Spinner, Alert, AlertIcon, AlertTitle, AlertDescription, Stack  } from '@chakra-ui/react';
 import axios from 'axios';
 import { API_KEY } from '../config/apiKeys';
 import { URL } from '../config/config';
 
 
 export const TaskGeneration = () =>  {
-    const [errorMessage, setErrorMessage] = useState('');
-    const [targetText, setTargetText] = useState('');
-    const [taskList, setTaskList] = useState({});
-    const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(''); // エラーメッセージ
+    const [targetText, setTargetText] = useState(''); // 目標
+    const [taskList, setTaskList] = useState({}); // タスク
+    const [isLoading, setIsLoading] = useState(false); // タスク生成状況
 
     // タスク生成用のプロンプトを作成
     const createPrompt = () => {
@@ -62,24 +62,25 @@ export const TaskGeneration = () =>  {
         }
     }
 
+    // タスク生成
     const generateTask = async () => {
         setIsLoading(true);
         const prompt = createPrompt();
         const resultTask = await postAPI(prompt);
-        let objTask = {};
+        let taskObj = {};
         try {
-            objTask = JSON.parse(resultTask);
+            taskObj = JSON.parse(resultTask);
         } catch (error) {
             console.log(error);
             setErrorMessage('タスクの生成に失敗しました。');
         }
-        console.log(objTask);
-        setTaskList(objTask);
+        console.log(taskObj);
+        setTaskList(taskObj);
         setIsLoading(false);
       };
 
     return (
-        <Box>
+        <Stack p={'3'} border={'1px'} borderRadius={'lg'}>
             {errorMessage && (
                 <Alert status="error">
                     <AlertIcon />
@@ -104,6 +105,6 @@ export const TaskGeneration = () =>  {
                     </ListItem>
                 )) }
             </OrderedList>
-        </Box>
+        </Stack>
     );
 };
