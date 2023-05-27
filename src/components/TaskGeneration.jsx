@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Textarea, Text, Button, Box, OrderedList, ListItem, Spinner, Alert, AlertIcon, AlertTitle, AlertDescription, Stack  } from '@chakra-ui/react';
+import { Textarea, Text, Button, List, ListItem, Spinner, Alert, AlertIcon, AlertDescription, Stack, Spacer  } from '@chakra-ui/react';
 import axios from 'axios';
 import { API_KEY } from '../config/apiKeys';
 import { URL } from '../config/config';
 
 
-export const TaskGeneration = () =>  {
+export const TaskGeneration = (props) =>  {
+    const { setIsGenerateTask, taskList, setTaskList } = props;
     const [errorMessage, setErrorMessage] = useState(''); // エラーメッセージ
     const [targetText, setTargetText] = useState(''); // 目標
-    const [taskList, setTaskList] = useState({}); // タスク
-    const [isLoading, setIsLoading] = useState(false); // タスク生成状況
+    const [isLoading, setIsLoading] = useState(false); // ローディング状況
 
     // タスク生成用のプロンプトを作成
     const createPrompt = () => {
@@ -64,6 +64,7 @@ export const TaskGeneration = () =>  {
 
     // タスク生成
     const generateTask = async () => {
+        setIsGenerateTask(false);
         setIsLoading(true);
         const prompt = createPrompt();
         const resultTask = await postAPI(prompt);
@@ -77,6 +78,7 @@ export const TaskGeneration = () =>  {
         console.log(taskObj);
         setTaskList(taskObj);
         setIsLoading(false);
+        setIsGenerateTask(true);
       };
 
     return (
@@ -94,17 +96,18 @@ export const TaskGeneration = () =>  {
                 onChange={(event) => setTargetText(event.target.value)}
             />
             <Button onClick={() => generateTask()} isLoading={isLoading}>
-            {isLoading ? <Spinner /> : 'タスクを生成'}
+                {isLoading ? <Spinner /> : 'タスクを生成'}
             </Button>
-            <OrderedList>
+            <Spacer/>
+            <List>
                 { Object.keys(taskList).map(key => (
-                    <ListItem key={key}>
-                    <Text fontSize={'xl'}>{key}</Text>
-                    <Text>Name: {taskList[key].name}</Text>
-                    <Text>Duration: {taskList[key].duration}</Text>
+                    <ListItem key={key} paddingBottom={'3'}>
+                    <Text fontSize={'xl'}>＜{key}＞</Text>
+                    <Text>タスク名: {taskList[key].name}</Text>
+                    <Text>時間: {taskList[key].duration}分</Text>
                     </ListItem>
                 )) }
-            </OrderedList>
+            </List>
         </Stack>
     );
 };
