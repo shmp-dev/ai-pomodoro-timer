@@ -6,10 +6,9 @@ import { URL } from '../config/config';
 
 
 export const ScheduleGeneration = (props) =>  {
-    const { taskList, scheduleList, setScheduleList, setOpenIndex, setViewPomodoroTimer } = props;
+    const { taskList, scheduleList, setScheduleList, setOpenIndex, setViewPomodoroTimer, isGenerateSchedule, setIsGenerateSchedule } = props;
     const [errorMessage, setErrorMessage] = useState(''); // エラーメッセージ
     const [isLoading, setIsLoading] = useState(false); // ローディング状況
-    const [isGenerateSchedule, setIsGenerateSchedule] = useState(false); // 作成状況
 
     // スケジュール生成用のプロンプトを作成
     const createPrompt = (input) => {

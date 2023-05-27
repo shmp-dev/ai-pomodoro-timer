@@ -13,7 +13,7 @@ import {
 
 // ポモドーロタイマーコンポーネント
 function PomodoroTimer(props) {
-  const { setViewPomodoroTimer } = props;
+  const { viewPomodoroTimer, setViewPomodoroTimer } = props;
   const [errorMessage, setErrorMessage] = useState(''); // エラーメッセージ
   // タイマーの分と秒、そしてタイマーが動作中かどうかを管理するための状態を定義します。
   const [minutes, setMinutes] = useState(25);
@@ -75,19 +75,23 @@ function PomodoroTimer(props) {
 
   // UIをレンダリングします。タイマーの値とスタート/ストップボタンを表示します。
   return (
-    <Stack>
-      {errorMessage && (
-        <Alert status="error">
-            <AlertIcon />
-            <AlertDescription>{errorMessage}</AlertDescription>
-        </Alert>
-      )}
-      <Button onClick={() => setViewPomodoroTimer(false)}>生成画面へ戻る</Button> 
-      <VStack p={'3'} border={'1px'} borderRadius={'lg'} spacing={10}>
-        <Text fontSize="6xl">{`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}</Text>
-        <Button onClick={toggleIsRunning}>{isRunning ? 'Pause' : 'Start'}</Button>
-      </VStack>
-    </Stack>
+    <>
+      { viewPomodoroTimer && 
+        <Stack>
+          {errorMessage && (
+            <Alert status="error">
+                <AlertIcon />
+                <AlertDescription>{errorMessage}</AlertDescription>
+            </Alert>
+          )}
+          <Button onClick={() => setViewPomodoroTimer(false)}>生成画面へ戻る</Button> 
+          <VStack p={'3'} border={'1px'} borderRadius={'lg'} spacing={10}>
+            <Text fontSize="6xl">{`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}</Text>
+            <Button onClick={toggleIsRunning}>{isRunning ? 'Pause' : 'Start'}</Button>
+          </VStack>
+        </Stack>
+      }
+    </>
   );
 }
 

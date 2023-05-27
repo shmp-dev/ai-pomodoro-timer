@@ -18,9 +18,8 @@ import { URL } from '../config/config';
 
 
 export const TaskGeneration = (props) =>  {
-    const { setIsGenerateTask, taskList, setTaskList, setOpenIndex, setScheduleList } = props;
+    const { targetText, setTargetText, setIsGenerateTask, taskList, setTaskList, setOpenIndex, setScheduleList } = props;
     const [errorMessage, setErrorMessage] = useState(''); // エラーメッセージ
-    const [targetText, setTargetText] = useState(''); // 目標
     const [isLoading, setIsLoading] = useState(false); // ローディング状況
 
     // タスク生成用のプロンプトを作成

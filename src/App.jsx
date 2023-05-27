@@ -24,8 +24,8 @@ const App = () => {
             {/* <Spacer />
             <InputApiKey /> */}
             <Spacer />
-            { !viewPomodoroTimer && <PomodoroGenerator setViewPomodoroTimer={setViewPomodoroTimer} /> }
-            { viewPomodoroTimer && <PomodoroTimer setViewPomodoroTimer={setViewPomodoroTimer} /> }
+            <PomodoroGenerator viewPomodoroTimer={viewPomodoroTimer} setViewPomodoroTimer={setViewPomodoroTimer} />
+            <PomodoroTimer viewPomodoroTimer={viewPomodoroTimer} setViewPomodoroTimer={setViewPomodoroTimer} />
           </Stack>
         </Container>
       </Box>

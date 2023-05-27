@@ -11,54 +11,64 @@ import { TaskGeneration } from "./TaskGeneration";
 import { ScheduleGeneration } from "./ScheduleGeneration";
 
 export const PomodoroGenerator = (props) => {
-    const { setViewPomodoroTimer } = props;
+    const { viewPomodoroTimer, setViewPomodoroTimer } = props;
     const [openIndex, setOpenIndex] = useState([0]); // 開いているアコーディオンアイテムのインデックス
+    const [targetText, setTargetText] = useState(''); // 目標
     const [isGenerateTask, setIsGenerateTask] = useState(false); // タスク作成状況
     const [taskList, setTaskList] = useState({}); // タスク
     const [scheduleList, setScheduleList] = useState({}); // スケジュール
+    const [isGenerateSchedule, setIsGenerateSchedule] = useState(false); // 作成状況
 
     return (
-        <Accordion index={openIndex} onChange={setOpenIndex} allowMultiple >
-        <AccordionItem>
-          <h2>
-            <AccordionButton>
-              <Box as="span" flex='1' textAlign='left' fontSize={'2xl'}>
-                タスクを生成
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel pb={4}>
-            <TaskGeneration
-              setIsGenerateTask={setIsGenerateTask} 
-              taskList={taskList}
-              setTaskList={setTaskList}
-              setOpenIndex={setOpenIndex}
-              setScheduleList={setScheduleList}
-            />
-          </AccordionPanel>
-        </AccordionItem>
-
-        <AccordionItem isDisabled={!isGenerateTask}>
-          <h2>
-              <AccordionButton>
-                <Box as="span" flex='1' textAlign='left' fontSize={'2xl'}>
-                  ポモドーロ・スケジュールを作成
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-          </h2>
-          <AccordionPanel pb={4}>
-            <ScheduleGeneration
-              taskList={taskList}
-              scheduleList={scheduleList}
-              setScheduleList={setScheduleList}
-              setOpenIndex={setOpenIndex}
-              setViewPomodoroTimer={setViewPomodoroTimer} 
-            />
-          </AccordionPanel>
-        </AccordionItem>
-      </Accordion>
+        <>
+            { !viewPomodoroTimer && 
+                <Accordion index={openIndex} onChange={setOpenIndex} allowMultiple >
+                <AccordionItem>
+                <h2>
+                    <AccordionButton>
+                    <Box as="span" flex='1' textAlign='left' fontSize={'2xl'}>
+                        タスクを生成
+                    </Box>
+                    <AccordionIcon />
+                    </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                    <TaskGeneration
+                    targetText={targetText}
+                    setTargetText={setTargetText}
+                    setIsGenerateTask={setIsGenerateTask} 
+                    taskList={taskList}
+                    setTaskList={setTaskList}
+                    setOpenIndex={setOpenIndex}
+                    setScheduleList={setScheduleList}
+                    />
+                </AccordionPanel>
+                </AccordionItem>
+        
+                <AccordionItem isDisabled={!isGenerateTask}>
+                <h2>
+                    <AccordionButton>
+                        <Box as="span" flex='1' textAlign='left' fontSize={'2xl'}>
+                        ポモドーロ・スケジュールを作成
+                        </Box>
+                        <AccordionIcon />
+                    </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                    <ScheduleGeneration
+                    taskList={taskList}
+                    scheduleList={scheduleList}
+                    setScheduleList={setScheduleList}
+                    setOpenIndex={setOpenIndex}
+                    setViewPomodoroTimer={setViewPomodoroTimer} 
+                    isGenerateSchedule={isGenerateSchedule}
+                    setIsGenerateSchedule={setIsGenerateSchedule}
+                    />
+                </AccordionPanel>
+                </AccordionItem>
+            </Accordion>
+            }
+        </>
     );
 
 };
