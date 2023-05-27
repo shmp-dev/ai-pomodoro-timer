@@ -6,9 +6,10 @@ import { URL } from '../config/config';
 
 
 export const ScheduleGeneration = (props) =>  {
-    const { taskList, scheduleList, setScheduleList, setOpenIndex } = props;
+    const { taskList, scheduleList, setScheduleList, setOpenIndex, setViewPomodoroTimer } = props;
     const [errorMessage, setErrorMessage] = useState(''); // エラーメッセージ
     const [isLoading, setIsLoading] = useState(false); // ローディング状況
+    const [isGenerateSchedule, setIsGenerateSchedule] = useState(false); // 作成状況
 
     // スケジュール生成用のプロンプトを作成
     const createPrompt = (input) => {
@@ -68,6 +69,10 @@ export const ScheduleGeneration = (props) =>  {
     // ポモドーロ・スケジュール生成
     const generateSchedule = async () => {
         setIsLoading(true);
+        setScheduleList({});
+        setErrorMessage('');
+        setIsGenerateSchedule(false);
+        setViewPomodoroTimer(false);
         const taskString = JSON.stringify(taskList);
         const prompt = createPrompt(taskString);
         const resultSchedule = await postAPI(prompt);
@@ -82,6 +87,7 @@ export const ScheduleGeneration = (props) =>  {
         console.log(scheduleObj);
         setScheduleList(scheduleObj);
         setOpenIndex([1]);
+        setIsGenerateSchedule(true);
         setIsLoading(false);
       };
 
@@ -108,6 +114,11 @@ export const ScheduleGeneration = (props) =>  {
                     </ListItem>
                 )) }
             </List>
+            { isGenerateSchedule && 
+                <Button onClick={() => setViewPomodoroTimer(true)} >
+                    ポモドーロ・タイマーを作成
+                </Button> 
+            }
         </Stack>
     );
 };

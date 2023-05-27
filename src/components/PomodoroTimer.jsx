@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Text, VStack, useToast } from '@chakra-ui/react';
+import { 
+          Button,
+          Text,
+          VStack,
+          useToast,
+          Alert,
+          AlertIcon,
+          AlertDescription,
+          Spinner,
+          Stack
+        } from '@chakra-ui/react';
 
 // ポモドーロタイマーコンポーネント
-function PomodoroTimer() {
+function PomodoroTimer(props) {
+  const { setViewPomodoroTimer } = props;
+  const [errorMessage, setErrorMessage] = useState(''); // エラーメッセージ
   // タイマーの分と秒、そしてタイマーが動作中かどうかを管理するための状態を定義します。
   const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState(0);
@@ -63,10 +75,19 @@ function PomodoroTimer() {
 
   // UIをレンダリングします。タイマーの値とスタート/ストップボタンを表示します。
   return (
-    <VStack p={'3'} border={'1px'} borderRadius={'lg'} spacing={10}>
-      <Text fontSize="6xl">{`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}</Text>
-      <Button onClick={toggleIsRunning}>{isRunning ? 'Pause' : 'Start'}</Button>
-    </VStack>
+    <Stack>
+      {errorMessage && (
+        <Alert status="error">
+            <AlertIcon />
+            <AlertDescription>{errorMessage}</AlertDescription>
+        </Alert>
+      )}
+      <Button onClick={() => setViewPomodoroTimer(false)}>生成画面へ戻る</Button> 
+      <VStack p={'3'} border={'1px'} borderRadius={'lg'} spacing={10}>
+        <Text fontSize="6xl">{`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}</Text>
+        <Button onClick={toggleIsRunning}>{isRunning ? 'Pause' : 'Start'}</Button>
+      </VStack>
+    </Stack>
   );
 }
 
