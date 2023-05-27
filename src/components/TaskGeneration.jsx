@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Textarea, Text, Button, Box, OrderedList, ListItem, Spinner } from '@chakra-ui/react';
+import { Textarea, Text, Button, Box, OrderedList, ListItem, Spinner, Alert, AlertIcon, AlertTitle, AlertDescription  } from '@chakra-ui/react';
 import axios from 'axios';
 import { API_KEY } from '../config/apiKeys';
 import { URL } from '../config/config';
 
 
 export const TaskGeneration = () =>  {
+    const [errorMessage, setErrorMessage] = useState('');
     const [targetText, setTargetText] = useState('');
     const [taskList, setTaskList] = useState({});
-    const [resText, setResText] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
     // タスク生成用のプロンプトを作成
@@ -57,7 +57,8 @@ export const TaskGeneration = () =>  {
         );
         return response.data.choices[0].message.content;
         } catch (error) {
-        console.log(error);
+            console.log(error);
+            setErrorMessage('通信中にエラーが発生しました。');
         }
     }
 
@@ -65,7 +66,13 @@ export const TaskGeneration = () =>  {
         setIsLoading(true);
         const prompt = createPrompt();
         const resultTask = await postAPI(prompt);
-        const objTask = JSON.parse(resultTask);
+        let objTask = {};
+        try {
+            objTask = JSON.parse(resultTask);
+        } catch (error) {
+            console.log(error);
+            setErrorMessage('タスクの生成に失敗しました。');
+        }
         console.log(objTask);
         setTaskList(objTask);
         setIsLoading(false);
@@ -73,6 +80,12 @@ export const TaskGeneration = () =>  {
 
     return (
         <Box>
+            {errorMessage && (
+                <Alert status="error">
+                    <AlertIcon />
+                    <AlertDescription>{errorMessage}</AlertDescription>
+                </Alert>
+            )}
             <Text fontSize={'2xl'}>タスクを生成</Text>
             <Textarea 
                 placeholder='目標を入力'
@@ -82,9 +95,6 @@ export const TaskGeneration = () =>  {
             <Button onClick={() => generateTask()} isLoading={isLoading}>
             {isLoading ? <Spinner /> : 'タスクを生成'}
             </Button>
-            <Text>
-                { resText }
-            </Text>
             <OrderedList>
                 { Object.keys(taskList).map(key => (
                     <ListItem key={key}>
