@@ -1,12 +1,24 @@
 import React, { useState } from 'react';
-import { Textarea, Text, Button, List, ListItem, Spinner, Alert, AlertIcon, AlertDescription, Stack, Spacer  } from '@chakra-ui/react';
+import { Textarea,
+         Text,
+         Button,
+         List,
+         ListItem,
+         Spinner,
+         Alert,
+         AlertIcon,
+         AlertDescription,
+         Stack,
+         Spacer
+            } from '@chakra-ui/react';
+
 import axios from 'axios';
 import { API_KEY } from '../config/apiKeys';
 import { URL } from '../config/config';
 
 
 export const TaskGeneration = (props) =>  {
-    const { setIsGenerateTask, taskList, setTaskList } = props;
+    const { setIsGenerateTask, taskList, setTaskList, setOpenIndex, setScheduleList } = props;
     const [errorMessage, setErrorMessage] = useState(''); // エラーメッセージ
     const [targetText, setTargetText] = useState(''); // 目標
     const [isLoading, setIsLoading] = useState(false); // ローディング状況
@@ -64,6 +76,10 @@ export const TaskGeneration = (props) =>  {
 
     // タスク生成
     const generateTask = async () => {
+        setErrorMessage('');
+        setTaskList({});
+        setOpenIndex([0]);
+        setScheduleList('');
         setIsGenerateTask(false);
         setIsLoading(true);
         const prompt = createPrompt();
@@ -74,22 +90,24 @@ export const TaskGeneration = (props) =>  {
         } catch (error) {
             console.log(error);
             setErrorMessage('タスクの生成に失敗しました。');
+            setIsLoading(false);
+            return;
         }
         console.log(taskObj);
         setTaskList(taskObj);
-        setIsLoading(false);
         setIsGenerateTask(true);
+        setOpenIndex([0, 1]);
+        setIsLoading(false);
       };
 
     return (
-        <Stack p={'3'} border={'1px'} borderRadius={'lg'}>
+        <Stack >
             {errorMessage && (
                 <Alert status="error">
                     <AlertIcon />
                     <AlertDescription>{errorMessage}</AlertDescription>
                 </Alert>
             )}
-            <Text fontSize={'2xl'}>タスクを生成</Text>
             <Textarea 
                 placeholder='目標を入力'
                 value={targetText}

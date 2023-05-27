@@ -6,9 +6,8 @@ import { URL } from '../config/config';
 
 
 export const ScheduleGeneration = (props) =>  {
-    const { taskList } = props;
+    const { taskList, scheduleList, setScheduleList, setOpenIndex } = props;
     const [errorMessage, setErrorMessage] = useState(''); // エラーメッセージ
-    const [scheduleList, setScheduleList] = useState({}); // ポモドーロ
     const [isLoading, setIsLoading] = useState(false); // ローディング状況
 
     // スケジュール生成用のプロンプトを作成
@@ -70,32 +69,30 @@ export const ScheduleGeneration = (props) =>  {
     const generateSchedule = async () => {
         setIsLoading(true);
         const taskString = JSON.stringify(taskList);
-        alert(taskString);
         const prompt = createPrompt(taskString);
-        alert(prompt);
         const resultSchedule = await postAPI(prompt);
-        alert(resultSchedule);
         let scheduleObj = {};
         try {
             scheduleObj = JSON.parse(resultSchedule);
         } catch (error) {
             console.log(error);
             setErrorMessage('スケジュールの生成に失敗しました。');
+            return;
         }
         console.log(scheduleObj);
         setScheduleList(scheduleObj);
+        setOpenIndex([1]);
         setIsLoading(false);
       };
 
     return (
-        <Stack p={'3'} border={'1px'} borderRadius={'lg'}>
+        <Stack>
             {errorMessage && (
                 <Alert status="error">
                     <AlertIcon />
                     <AlertDescription>{errorMessage}</AlertDescription>
                 </Alert>
             )}
-            <Text fontSize={'2xl'}>ポモドーロ・スケジュールを生成</Text>
             <Button onClick={() => generateSchedule()} isLoading={isLoading} >
                 {isLoading ? <Spinner /> : 'ポモドーロ・スケジュールを作成'}
             </Button> 
