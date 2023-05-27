@@ -8,11 +8,12 @@ import {
   Spacer,
   Stack,
 } from '@chakra-ui/react';
-import PomodoroTimer from './components/PomodoroTimer';
+import { PomodoroTimer } from './components/PomodoroTimer';
 import { PomodoroGenerator } from './components/PomodoroGenerator';
 // import { InputApiKey } from './components/InputApiKey'
 
 const App = () => {
+  const [scheduleList, setScheduleList] = useState({}); // スケジュール
   const [viewPomodoroTimer, setViewPomodoroTimer] = useState(false); // スケジュール作成状況
 
   return (
@@ -24,8 +25,17 @@ const App = () => {
             {/* <Spacer />
             <InputApiKey /> */}
             <Spacer />
-            <PomodoroGenerator viewPomodoroTimer={viewPomodoroTimer} setViewPomodoroTimer={setViewPomodoroTimer} />
-            <PomodoroTimer viewPomodoroTimer={viewPomodoroTimer} setViewPomodoroTimer={setViewPomodoroTimer} />
+            <PomodoroGenerator 
+              scheduleList={scheduleList}
+              setScheduleList={setScheduleList}
+              viewPomodoroTimer={viewPomodoroTimer}
+              setViewPomodoroTimer={setViewPomodoroTimer}
+            />
+            <PomodoroTimer
+              scheduleList={scheduleList}
+              viewPomodoroTimer={viewPomodoroTimer}
+              setViewPomodoroTimer={setViewPomodoroTimer}
+            />
           </Stack>
         </Container>
       </Box>

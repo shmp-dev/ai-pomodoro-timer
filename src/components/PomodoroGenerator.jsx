@@ -11,12 +11,11 @@ import { TaskGeneration } from "./TaskGeneration";
 import { ScheduleGeneration } from "./ScheduleGeneration";
 
 export const PomodoroGenerator = (props) => {
-    const { viewPomodoroTimer, setViewPomodoroTimer } = props;
+    const { viewPomodoroTimer, setViewPomodoroTimer, scheduleList, setScheduleList } = props;
     const [openIndex, setOpenIndex] = useState([0]); // 開いているアコーディオンアイテムのインデックス
     const [targetText, setTargetText] = useState(''); // 目標
     const [isGenerateTask, setIsGenerateTask] = useState(false); // タスク作成状況
     const [taskList, setTaskList] = useState({}); // タスク
-    const [scheduleList, setScheduleList] = useState({}); // スケジュール
     const [isGenerateSchedule, setIsGenerateSchedule] = useState(false); // 作成状況
 
     return (
