@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import { Textarea,
          Text,
          Button,
-         List,
-         ListItem,
+         Heading,
          Spinner,
          Alert,
          AlertIcon,
          AlertDescription,
          Stack,
-         Spacer
+         Spacer,
+         Input,
+         Card,
+         CardBody,
+         CardHeader
             } from '@chakra-ui/react';
 
 import axios from 'axios';
@@ -99,6 +102,28 @@ export const TaskGeneration = (props) =>  {
         setIsLoading(false);
       };
 
+      // タスク名を更新
+      const updateTaskName = (key, newName) => {
+        setTaskList(prevTaskList => ({
+          ...prevTaskList,
+          [key]: {
+            ...prevTaskList[key],
+            name: newName
+          }
+        }));
+      };
+
+      // タスクの期間を更新
+      const updateTaskDuration = (key, newDuration) => {
+        setTaskList(prevTaskList => ({
+          ...prevTaskList,
+          [key]: {
+            ...prevTaskList[key],
+            duration: newDuration
+          }
+        }));
+      };      
+
     return (
         <Stack >
             {errorMessage && (
@@ -116,15 +141,26 @@ export const TaskGeneration = (props) =>  {
                 {isLoading ? <Spinner /> : 'タスクを生成'}
             </Button>
             <Spacer/>
-            <List>
-                { Object.keys(taskList).map(key => (
-                    <ListItem key={key} paddingBottom={'3'}>
-                    <Text fontSize={'xl'}>＜{key}＞</Text>
-                    <Text>タスク名: {taskList[key].name}</Text>
-                    <Text>時間: {taskList[key].duration}分</Text>
-                    </ListItem>
-                )) }
-            </List>
+            { Object.keys(taskList).map(key => (
+                <Card key={key}>
+                    <CardHeader paddingBottom={'0'}>
+                        <Heading size='md'>＜{key}＞</Heading>
+                    </CardHeader>
+                    <CardBody>
+                        <Text>タスク名:</Text>
+                        <Input
+                            marginBottom={'2'}
+                            value={taskList[key].name}
+                            onChange={event => updateTaskName(key, event.target.value)}
+                        />
+                        <Text>時間（分）:</Text>
+                        <Input
+                            value={taskList[key].duration}
+                            onChange={event => updateTaskDuration(key, event.target.value)}
+                        />
+                    </CardBody>
+                </Card>
+            )) }
         </Stack>
     );
 };

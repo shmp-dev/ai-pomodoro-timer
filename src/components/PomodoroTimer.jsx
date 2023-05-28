@@ -56,7 +56,7 @@ export const PomodoroTimer = (props) => {
             { Object.keys(scheduleList).map(key => (
               <ListItem key={key} paddingBottom={'3'}>
                 <Text fontSize={'xl'}>＜{key}＞</Text>
-                <Text>タスク名: {scheduleList[key].task}</Text>
+                <Text>セッション名: {scheduleList[key].task}</Text>
                 <Text>時間: {scheduleList[key].schedule.workDuration}</Text>
                 <Text>休憩時間: {scheduleList[key].schedule.breakDuration}</Text>
                 <Text>反復回数: {scheduleList[key].schedule.iterations}</Text>

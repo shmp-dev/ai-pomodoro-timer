@@ -1,5 +1,18 @@
 import React, { useState } from 'react';
-import { Text, Button, List, ListItem, Spinner, Alert, AlertIcon, AlertDescription, Stack, Spacer  } from '@chakra-ui/react';
+import { Text,
+         Button,
+         Input,
+         Heading,
+         Spinner,
+         Alert,
+         AlertIcon, 
+         AlertDescription,
+         Stack,
+         Spacer,
+         Card,
+         CardBody,
+         CardHeader
+        } from '@chakra-ui/react';
 import axios from 'axios';
 import { API_KEY } from '../config/apiKeys';
 import { URL } from '../config/config';
@@ -81,6 +94,7 @@ export const ScheduleGeneration = (props) =>  {
         } catch (error) {
             console.log(error);
             setErrorMessage('スケジュールの生成に失敗しました。');
+            setIsLoading(false);
             return;
         }
         console.log(scheduleObj);
@@ -89,6 +103,59 @@ export const ScheduleGeneration = (props) =>  {
         setIsGenerateSchedule(true);
         setIsLoading(false);
       };
+
+    // スケジュール名を更新
+    const updateScheduleName = (key, newName) => {
+        setScheduleList(prevScheduleList => ({
+        ...prevScheduleList,
+        [key]: {
+            ...prevScheduleList[key],
+            task: newName
+        }
+        }));
+    };
+
+    // スケジュールの期間を更新
+    const updateScheduleDuration = (key, newDuration) => {
+        setScheduleList(prevScheduleList => ({
+        ...prevScheduleList,
+        [key]: {
+            ...prevScheduleList[key],
+            schedule: {
+            ...prevScheduleList[key].schedule,
+            workDuration: newDuration
+            }
+        }
+        }));
+    };      
+
+    // スケジュールの休憩時間を更新
+    const updateScheduleBreak = (key, newBreak) => {
+        setScheduleList(prevScheduleList => ({
+        ...prevScheduleList,
+        [key]: {
+            ...prevScheduleList[key],
+            schedule: {
+            ...prevScheduleList[key].schedule,
+            breakDuration: newBreak
+            }
+        }
+        }));
+    };
+
+    // スケジュールの反復回数を更新
+    const updateScheduleIterations = (key, newIterations) => {
+        setScheduleList(prevScheduleList => ({
+        ...prevScheduleList,
+        [key]: {
+            ...prevScheduleList[key],
+            schedule: {
+            ...prevScheduleList[key].schedule,
+            iterations: newIterations
+            }
+        }
+        }));
+    };    
 
     return (
         <Stack>
@@ -102,17 +169,38 @@ export const ScheduleGeneration = (props) =>  {
                 {isLoading ? <Spinner /> : 'ポモドーロ・スケジュールを作成'}
             </Button> 
             <Spacer/>
-            <List>
-                { Object.keys(scheduleList).map(key => (
-                    <ListItem key={key} paddingBottom={'3'}>
-                    <Text fontSize={'xl'}>＜{key}＞</Text>
-                    <Text>タスク名: {scheduleList[key].task}</Text>
-                    <Text>時間: {scheduleList[key].schedule.workDuration}</Text>
-                    <Text>休憩時間: {scheduleList[key].schedule.breakDuration}</Text>
-                    <Text>反復回数: {scheduleList[key].schedule.iterations}</Text>
-                    </ListItem>
-                )) }
-            </List>
+            { Object.keys(scheduleList).map(key => (
+                <Card key={key}>
+                    <CardHeader paddingBottom={'0'}>
+                        <Heading size='md'>＜{key}＞</Heading>
+                    </CardHeader>
+                    <CardBody>
+                        <Text>セッション名:</Text>
+                        <Input
+                            marginBottom={'2'}
+                            value={scheduleList[key].task}
+                            onChange={event => updateScheduleName(key, event.target.value)}
+                        />
+                        <Text>時間（分）:</Text>
+                        <Input
+                            marginBottom={'2'}
+                            value={scheduleList[key].schedule.workDuration}
+                            onChange={event => updateScheduleDuration(key, event.target.value)}
+                        />
+                        <Text>休憩時間:</Text>
+                        <Input
+                            marginBottom={'2'}
+                            value={scheduleList[key].schedule.breakDuration}
+                            onChange={event => updateScheduleBreak(key, event.target.value)}
+                        />
+                        <Text>反復回数:</Text>
+                        <Input
+                            value={scheduleList[key].schedule.iterations}
+                            onChange={event => updateScheduleIterations(key, event.target.value)}
+                        />
+                    </CardBody>
+                </Card>
+            )) }
             { isGenerateSchedule && 
                 <Button onClick={() => setViewPomodoroTimer(true)} >
                     ポモドーロ・タイマーを作成
