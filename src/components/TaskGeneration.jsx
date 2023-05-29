@@ -133,7 +133,8 @@ export const TaskGeneration = (props) =>  {
                 </Alert>
             )}
             <Textarea 
-                placeholder='目標を入力'
+                rows={6}
+                placeholder={`目標を入力\n\n例：\nパワーポイントでプレゼン資料を作ります。\nテーマは、「ChatGPTについて」です。\n約15分程度の発表時間を予定しています。`}
                 value={targetText}
                 onChange={(event) => setTargetText(event.target.value)}
             />
