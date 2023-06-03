@@ -10,7 +10,6 @@ import {
 } from '@chakra-ui/react';
 import { PomodoroTimer } from './components/PomodoroTimer';
 import { PomodoroGenerator } from './components/PomodoroGenerator';
-// import { InputApiKey } from './components/InputApiKey'
 
 const App = () => {
   const [scheduleList, setScheduleList] = useState({}); // スケジュール
@@ -22,8 +21,6 @@ const App = () => {
         <Container width={'80%'} p={'5'} bgColor={'white'} minHeight="100vh">
           <Stack>
             <Heading>AI ポモドーロ・タイマー</Heading>
-            {/* <Spacer />
-            <InputApiKey /> */}
             <Spacer />
             <PomodoroGenerator 
               scheduleList={scheduleList}
