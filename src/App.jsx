@@ -7,9 +7,11 @@ import {
   Container,
   Spacer,
   Stack,
+  HStack
 } from '@chakra-ui/react';
 import { PomodoroTimer } from './components/PomodoroTimer';
 import { PomodoroGenerator } from './components/PomodoroGenerator';
+import { TutorialButton } from './components/TutorialButton';
 
 const App = () => {
   const [scheduleList, setScheduleList] = useState({}); // スケジュール
@@ -17,10 +19,13 @@ const App = () => {
 
   return (
     <ChakraProvider theme={theme}>
-      <Box width={'100%'} bgColor={'gray.100'}>
-        <Container width={'80%'} p={'5'} bgColor={'white'} minHeight="100vh">
+      <Box px={'10'} bgColor={'gray.100'}>
+        <Container maxW={'1000px'} p={'5'} bgColor={'white'} minHeight="100vh">
           <Stack>
-            <Heading>AI ポモドーロ・タイマー</Heading>
+            <HStack justifyContent={'space-between'}>
+              <Heading>AI ポモドーロ・タイマー</Heading>
+              <TutorialButton />
+            </HStack>
             <Spacer />
             <PomodoroGenerator 
               scheduleList={scheduleList}
