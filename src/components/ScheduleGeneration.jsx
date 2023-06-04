@@ -162,17 +162,17 @@ export const ScheduleGeneration = (props) =>  {
             {errorMessage && (
                 <Alert status="error">
                     <AlertIcon />
-                    <AlertDescription>{errorMessage}</AlertDescription>
+                    <AlertDescription fontSize={{ base:'xs', sm:'md' }}>{errorMessage}</AlertDescription>
                 </Alert>
             )}
-            <Button onClick={() => generateSchedule()} isLoading={isLoading} >
+            <Button fontSize={{ base:'xs', sm:'sm', md:'md' }} onClick={() => generateSchedule()} isLoading={isLoading} >
                 {isLoading ? <Spinner /> : 'ポモドーロ・スケジュールを作成'}
             </Button> 
             <Spacer/>
             { Object.keys(scheduleList).map(key => (
                 <Card key={key}>
                     <CardHeader paddingBottom={'0'}>
-                        <Heading size='md'>＜{key}＞</Heading>
+                        <Heading size={{ base:'sm', sm:'md' }}>＜{key}＞</Heading>
                     </CardHeader>
                     <CardBody>
                         <Text>セッション名:</Text>
@@ -202,7 +202,7 @@ export const ScheduleGeneration = (props) =>  {
                 </Card>
             )) }
             { isGenerateSchedule && 
-                <Button onClick={() => setViewPomodoroTimer(true)} >
+                <Button fontSize={{ base:'xs', sm:'sm', md:'md' }} onClick={() => setViewPomodoroTimer(true)} >
                     ポモドーロ・タイマーを作成
                 </Button> 
             }

@@ -129,7 +129,7 @@ export const TaskGeneration = (props) =>  {
             {errorMessage && (
                 <Alert status="error">
                     <AlertIcon />
-                    <AlertDescription>{errorMessage}</AlertDescription>
+                    <AlertDescription fontSize={{ base:'xs', sm:'md' }}>{errorMessage}</AlertDescription>
                 </Alert>
             )}
             <Textarea 
@@ -138,14 +138,14 @@ export const TaskGeneration = (props) =>  {
                 value={targetText}
                 onChange={(event) => setTargetText(event.target.value)}
             />
-            <Button onClick={() => generateTask()} isLoading={isLoading}>
+            <Button fontSize={{ base:'xs', sm:'sm', md:'md' }} onClick={() => generateTask()} isLoading={isLoading}>
                 {isLoading ? <Spinner /> : 'タスクを生成'}
             </Button>
             <Spacer/>
             { Object.keys(taskList).map(key => (
                 <Card key={key}>
                     <CardHeader paddingBottom={'0'}>
-                        <Heading size='md'>＜{key}＞</Heading>
+                        <Heading size={{ base:'sm', sm:'md' }}>＜{key}＞</Heading>
                     </CardHeader>
                     <CardBody>
                         <Text>タスク名:</Text>

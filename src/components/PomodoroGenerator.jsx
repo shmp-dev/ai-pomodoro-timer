@@ -25,7 +25,7 @@ export const PomodoroGenerator = (props) => {
                 <AccordionItem>
                 <h2>
                     <AccordionButton>
-                    <Box as="span" flex='1' textAlign='left' fontSize={'2xl'}>
+                    <Box as="span" flex='1' textAlign='left' fontSize={{ base:'lg', sm:'xl', md: '2xl' }}>
                         タスクを生成
                     </Box>
                     <AccordionIcon />
@@ -47,7 +47,7 @@ export const PomodoroGenerator = (props) => {
                 <AccordionItem isDisabled={!isGenerateTask}>
                 <h2>
                     <AccordionButton>
-                        <Box as="span" flex='1' textAlign='left' fontSize={'2xl'}>
+                        <Box as="span" flex='1' textAlign='left' fontSize={{ base:'lg', sm:'xl', md: '2xl' }}>
                         ポモドーロ・スケジュールを作成
                         </Box>
                         <AccordionIcon />
