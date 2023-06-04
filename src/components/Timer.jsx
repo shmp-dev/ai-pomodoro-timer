@@ -95,7 +95,7 @@ export const Timer = (props) => {
     <Card> 
       <CardBody>
         <VStack>
-          <CardHeader fontSize={'2xl'}>
+          <CardHeader fontSize={{ base:'lg', sm:'xl', md: '2xl' }}>
             <Text>{title}</Text>
           </CardHeader>
           {!isWorkPeriod && <Text>（休憩時間）</Text>}
