@@ -23,12 +23,7 @@ const App = () => {
   useEffect(() => {
     const expires = new Date();
     expires.setDate(expires.getDate() + 14); // 2週間後に有効期限を設定
-
-    setCookie('visited', true, { expires: expires });
-    if (!cookies.visited) {
-      // 初めてサイトを訪れた場合
-      
-    }
+    setCookie('visited', true, { expires: expires }); // クッキーを作成
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
