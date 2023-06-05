@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
     IconButton,
     Button,
@@ -13,8 +14,17 @@ import {
   } from '@chakra-ui/react';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 
-export const TutorialButton = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+export const TutorialButton = (props) => {
+    const { visited } = props;
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    // ユーザーがサイトを初めて訪れた場合、モーダルを自動的に開く
+    useEffect(() => {
+    if (!visited) {
+        onOpen();
+    }
+    }, [visited, onOpen]);
+    
     return (
         <>
             <IconButton icon={<AiOutlineQuestionCircle />}  onClick={onOpen}/>
