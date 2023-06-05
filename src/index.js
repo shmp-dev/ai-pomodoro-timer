@@ -3,14 +3,17 @@ import React, { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { CookiesProvider } from "react-cookie";
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
 root.render(
   <StrictMode>
-    <ColorModeScript />
-    <App />
+    <CookiesProvider>
+      <ColorModeScript />
+      <App />
+    </CookiesProvider>
   </StrictMode>
 );
 
