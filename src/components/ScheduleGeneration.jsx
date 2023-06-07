@@ -169,10 +169,10 @@ export const ScheduleGeneration = (props) =>  {
                 {isLoading ? <Spinner /> : 'ポモドーロ・スケジュールを作成'}
             </Button> 
             <Spacer/>
-            { Object.keys(scheduleList).map(key => (
+            { Object.keys(scheduleList).map((key, index) => (
                 <Card key={key}>
                     <CardHeader paddingBottom={'0'}>
-                        <Heading size={{ base:'sm', sm:'md' }}>＜{key}＞</Heading>
+                        <Heading size={{ base:'sm', sm:'md' }} borderBottom={'1px'}>セッション{index+1}</Heading>
                     </CardHeader>
                     <CardBody>
                         <Text>セッション名:</Text>

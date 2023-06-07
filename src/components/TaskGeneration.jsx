@@ -142,10 +142,10 @@ export const TaskGeneration = (props) =>  {
                 {isLoading ? <Spinner /> : 'タスクを生成'}
             </Button>
             <Spacer/>
-            { Object.keys(taskList).map(key => (
+            { Object.keys(taskList).map((key, index) => (
                 <Card key={key}>
                     <CardHeader paddingBottom={'0'}>
-                        <Heading size={{ base:'sm', sm:'md' }}>＜{key}＞</Heading>
+                        <Heading size={{ base:'sm', sm:'md' }} borderBottom={'1px'}>タスク{index+1}</Heading>
                     </CardHeader>
                     <CardBody>
                         <Text>タスク名:</Text>
