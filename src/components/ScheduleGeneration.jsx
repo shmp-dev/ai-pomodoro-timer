@@ -165,7 +165,7 @@ export const ScheduleGeneration = (props) =>  {
                     <AlertDescription fontSize={{ base:'xs', sm:'md' }}>{errorMessage}</AlertDescription>
                 </Alert>
             )}
-            <Button fontSize={{ base:'xs', sm:'sm', md:'md' }} onClick={() => generateSchedule()} isLoading={isLoading} >
+            <Button fontSize={{ base:'xs', sm:'sm', md:'md' }} backgroundColor={'red.100'} _hover={{ bg: 'red.200' }} onClick={() => generateSchedule()} isLoading={isLoading} >
                 {isLoading ? <Spinner /> : 'ポモドーロ・スケジュールを作成'}
             </Button> 
             <Spacer/>
@@ -202,7 +202,7 @@ export const ScheduleGeneration = (props) =>  {
                 </Card>
             )) }
             { isGenerateSchedule && 
-                <Button fontSize={{ base:'xs', sm:'sm', md:'md' }} onClick={() => setViewPomodoroTimer(true)} >
+                <Button fontSize={{ base:'xs', sm:'sm', md:'md' }} backgroundColor={'red.100'} _hover={{ bg: 'red.200' }} onClick={() => setViewPomodoroTimer(true)} >
                     ポモドーロ・タイマーを作成
                 </Button> 
             }

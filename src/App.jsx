@@ -29,11 +29,11 @@ const App = () => {
 
   return (
     <ChakraProvider theme={theme}>
-      <Box px={{ base:'0', sm:'4', md:'8', lg:'10' }} bgColor={'gray.100'}>
+      <Box px={{ base:'0', sm:'4', md:'8', lg:'10' }} bgColor={'red.50'}>
         <Container maxW={'1000px'} p={'5'} bgColor={'white'} minHeight="100vh">
           <Stack>
             <HStack justifyContent={'space-between'}>
-              <Heading as={'h1'} size={{ base:'md', sm:'lg', md: 'xl' }}>AI ポモドーロ・タイマー</Heading>
+              <Heading as={'h1'} size={{ base:'md', sm:'lg', md: 'xl' }} borderBottom={'2px'} borderColor={'red.200'}>AI ポモドーロ・タイマー</Heading>
               <TutorialButton visited={cookies.visited} />
             </HStack>
             <Spacer />

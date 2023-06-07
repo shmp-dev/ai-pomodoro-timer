@@ -138,7 +138,7 @@ export const TaskGeneration = (props) =>  {
                 value={targetText}
                 onChange={(event) => setTargetText(event.target.value)}
             />
-            <Button fontSize={{ base:'xs', sm:'sm', md:'md' }} onClick={() => generateTask()} isLoading={isLoading}>
+            <Button fontSize={{ base:'xs', sm:'sm', md:'md' }} backgroundColor={'red.100'} _hover={{ bg: 'red.200' }} onClick={() => generateTask()} isLoading={isLoading}>
                 {isLoading ? <Spinner /> : 'タスクを生成'}
             </Button>
             <Spacer/>

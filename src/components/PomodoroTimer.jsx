@@ -6,7 +6,8 @@ import {
   List,
   ListItem,
   HStack,
-  Spacer
+  Spacer,
+  Heading
 } from '@chakra-ui/react';
 import { Timer } from './Timer';
 
@@ -48,14 +49,14 @@ export const PomodoroTimer = (props) => {
             iterations={scheduleList[selectedTimerKey].schedule.iterations}
           />
           <HStack width="100%">
-            {currentIndex > 0 && <Button onClick={selectPreviousTimer}>＜</Button>}
+            {currentIndex > 0 && <Button backgroundColor={'red.100'} _hover={{ bg: 'red.200' }} onClick={selectPreviousTimer}>＜</Button>}
             <Spacer />
-            {currentIndex < scheduleKeys.length - 1 && <Button onClick={selectNextTimer}>＞</Button>}
+            {currentIndex < scheduleKeys.length - 1 && <Button backgroundColor={'red.100'} _hover={{ bg: 'red.200' }} onClick={selectNextTimer}>＞</Button>}
           </HStack>
           <List>
-            { Object.keys(scheduleList).map(key => (
-              <ListItem key={key} paddingBottom={'3'}>
-                <Text  fontSize={{ base:'lg', sm:'xl' }}>＜{key}＞</Text>
+            { Object.keys(scheduleList).map((key, index) => (
+              <ListItem key={key} paddingBottom={'4'}>
+                <Text fontSize={{ base:'lg', sm:'xl' }} fontWeight={'bold'} borderBottom={'1px'} marginBottom={'2'}>セッション{index+1}</Text>
                 <Text>セッション名: {scheduleList[key].task}</Text>
                 <Text>時間: {scheduleList[key].schedule.workDuration}</Text>
                 <Text>休憩時間: {scheduleList[key].schedule.breakDuration}</Text>
@@ -63,7 +64,7 @@ export const PomodoroTimer = (props) => {
                 </ListItem>
             )) }
           </List>
-          <Button onClick={() => setViewPomodoroTimer(false)}>生成画面へ戻る</Button> 
+          <Button backgroundColor={'red.100'} _hover={{ bg: 'red.200' }} onClick={() => setViewPomodoroTimer(false)}>生成画面へ戻る</Button> 
         </Stack>
       }
     </>

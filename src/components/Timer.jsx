@@ -104,8 +104,8 @@ export const Timer = (props) => {
           <Spacer />
           <CardHeader>
             <HStack>
-              <Button onClick={toggleIsRunning}>{isRunning ? 'Pause' : 'Start'}</Button>
-              <Button onClick={resetTimer}>Reset</Button> 
+              <Button backgroundColor={'red.100'} _hover={{ bg: 'red.200' }} onClick={toggleIsRunning}>{isRunning ? 'Pause' : 'Start'}</Button>
+              <Button backgroundColor={'red.100'} _hover={{ bg: 'red.200' }} onClick={resetTimer}>Reset</Button> 
             </HStack>
           </CardHeader>
         </VStack>

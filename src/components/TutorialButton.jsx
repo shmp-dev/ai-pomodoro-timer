@@ -27,7 +27,7 @@ export const TutorialButton = (props) => {
     
     return (
         <>
-            <IconButton icon={<AiOutlineQuestionCircle />}  onClick={onOpen}/>
+            <IconButton icon={<AiOutlineQuestionCircle />} backgroundColor={'red.100'} _hover={{ bg: 'red.200' }} onClick={onOpen}/>
             <Modal size={'xl'} isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
